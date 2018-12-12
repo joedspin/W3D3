@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+user = nil
+while user.nil?
+  print 'Email: '
+
+  input1 = gets.chomp
+  puts 
+  user = User.find_by_email(input1)
+end 
+
+print 'Visit(v) or Create(c) ? '
+
+input2 = gets.chomp
+puts 
+
+if input2.downcase == 'v'
+  print 'Short url?'
+  input3 = gets.chomp
+  puts
+  short_url1 = ShortenedUrl.find_by_short_url(input3)
+  system('launchy ' + short_url1.long_url) 
+elsif input2.downcase == 'c'
+  print 'What is the long url?'
+  input3 = gets.chomp
+  puts
+  short_url1 = ShortenedUrl.shorten(user, input3)
+  puts short_url1.short_url
+end 
